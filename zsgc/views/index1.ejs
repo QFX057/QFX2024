@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+ 
+    body{
+        background-color: rgb(47, 48, 50);
+    }
+    th{
+        width: 150px;
+    }
+    table,h1{
+        margin: 30px auto;
+    }
+    h1{
+        width: 500px;
+        text-align: center;
+        background-color: aqua;
+    }
+
+     .center_div{
+        margin: 30px auto;
+        width: 50%;
+        height: 300px;
+        border: 1px solid rgb(0, 255, 81);
+        background-color: rgb(115, 139, 161);
+     }
+</style>
+<body>
+<div class="center_div">
+    <h1>Student list</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>age</th>
+                <th>grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% students.forEach(function(student) { %>
+            
+            <tr>
+                <th><%= student.id %></th>
+                <th><%= student.name %></th>
+                <th><%= student.score %></th>
+                <th><%= student.site %></th>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<a style="color: aqua;" href="./hello">hello</a>
+<button onclick="window.location.href='./hello'">跳转回首页</button>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生列表</title>
+</head>
+
+<style>
+table {  
+  margin: 0% auto;
+    width: 800px;  
+    border-collapse: collapse;  
+    table-layout: fixed;  /* 仍然需要这个属性来确保列宽固定相对于表格宽度 */ 
+  }  
+  td{
+    text-align: left;
+  }
+  
+  td:nth-child(4){
+    width: 150px;
+    overflow: auto;
+  }
+
+
+  
+/* 控制纵向滚动条的宽度 */
+::-webkit-scrollbar {
+  width: 8px; /* 更细的垂直滚动条 */
+}
+
+/* 控制横向滚动条的高度 */
+::-webkit-scrollbar {
+  height: 8px; /* 更细的水平滚动条 */
+}
+
+/* 控制滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 滚动条轨道的颜色 */
+}
+
+/* 控制滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: #dddcdc; /* 滚动条滑块的颜色 */
+  border-radius: 10px; /* 滚动条滑块的圆角 */
+}
+
+/* 当鼠标悬停在滚动条上时改变滑块颜色 */
+::-webkit-scrollbar-thumb:hover {
+  background: #959494; /* 鼠标悬停时的颜色 */
+}
+
+
+
+ 
+  th, td {  
+    border: 1px solid #ddd; /* 设置边框 */  
+    padding: 8px; /* 单元格内边距 */  
+  }  
+  th {  
+    background-color: #f2f2f2; /* 表头背景色 */  
+    text-align: left; /* 表头文本对齐方式 */  
+
+  }  
+  tr:nth-child(even) {  
+    background-color: #f9f9f9; /* 偶数行背景色 */  
+  }  
+  tr:hover {  
+    background-color: #b6edf0; /* 鼠标悬停行背景色 */  
+  }  
+  h1{
+    text-align: center;
+  }
+  /* form{
+    border: 1px solid;
+    width: 800px;
+    margin: 0% auto;
+  } */
+  /* form input{
+    position:relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    border: 1px solid #007bff;
+    width: 200px;
+    height: 25px;
+  } */
+
+  .container{
+    width: 100%;
+    height: 900px;
+
+ 
+  }
+
+        /* 容器样式 */
+        .head_container {
+            width: 760px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            /* border: 1px solid #ccc; */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 表单输入框 */
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #adbbeb;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        /* 按钮样式 */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* 返回按钮样式 */
+        #returnButton {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        #returnButton:hover {
+            background-color: #218838;
+        }
+
+        /* 添加新学生链接样式 */
+        .add-student-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .add-student-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 让返回按钮和添加学生按钮对齐 */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .button-group a {
+            text-align: center;
+            font-size: 16px;
+        }
+
+    </style>
+<body>
+
+<div class="container" >
+
+  <div class="head_container">
+    <form action="/search" method="GET" style="margin-bottom: 10px; width: 720px; margin: 0  auto;">
+        <div style="display: flex; align-items: center;">
+            <input type="text" name="query" placeholder="请输入学号或姓名" required>
+            <button style="width: 120px;" type="submit">搜索</button>
+        </div>
+        <div class="button-group">
+            <!-- 返回按钮 -->
+            <a href="/add" class="add-student-link">添加新学生</a>
+            <a id="returnButton" href="/">返回</a>
+            <!-- 添加新学生按钮 -->
+
+        </div>
+    </form>
+  </div>
+
+      <table border="1">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>姓名</th>
+                  <th>年龄</th>
+                  <th>网址</th>
+                  <th>操作</th>
+              </tr>
+          </thead>
+          <tbody>
+              <% students.forEach(student => { %>
+              <tr>
+                  <td><%= student.id %></td>
+                  <td><%= student.name %></td>
+                  <td><%= student.score %></td>
+                  <td style="white-space: nowrap;"><a target="_blank" href="http://<%= student.site %>"><%= student.site %></a></td>
+                  <td>
+                      <a href="/edit/<%= student.id %>">编辑</a>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <form action="/delete/<%= student.id %>" method="POST" style="display:inline;">
+                          <button type="submit">删除</button>
+                      </form>
+                  </td>
+              </tr>
+              <% }) %>
+          </tbody>
+      </table>
+
+
+</div>
+</body>
+
+</html>
